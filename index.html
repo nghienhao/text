@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Copy text Tấn Giang">
+    <meta property="og:site_name" content="Copy text Tấn Giang">
+    <meta name="theme-color" content="#22292F">
+    <meta name="google" content="notranslate">
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="noindex,nofollow">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link type="image/x-icon" rel="shortcut icon" href="https://i.imgur.com/Ki0XJPS.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/3.0.1/mini-default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <style>
+        body {
+            max-width: 1150px;
+            margin: auto;
+            word-wrap: break-word;
+            box-shadow: rgba(17, 17, 26, 0.1) 0 0 16px;
+            background-color: #dcdcdc;
+
+        }
+    </style>
+    <title>Copy text Tấn Giang</title>
+
+
+    <div class="card fluid" style="--card-back-color:#5FD068;--card-border-color:#4B5D67;">
+        <div class="section">
+            <h1 style="text-align:center;">Copy text Tấn Giang</h1>
+        </div>
+        <div class="section dark">
+            <h3>Chương Free ✔️ Chương Vip ✔️</h3>
+            <p>
+                <b>Bước 1:</b> Đăng nhập vào vào website của <a href="https://www.jjwxc.net/">Tấn Giang</a>.
+            </p>
+            <p><b>Bước 2:</b> Nhập URL của chap truyện mà bạn muốn lấy text, rồi nhấp vào <b>Mở</b>.</p>
+            <p><input type="text" style="width:50%" id="linkTG"
+                    placeholder="http://my.jjwxc.net/onebook_vip.php?novelid=5186048&chapterid=348" class="doc">
+                <button class="tertiary" onclick="openLink()"><i class="fa fa-external-link" aria-hidden="true"></i>
+                    Mở</button>
+            </p>
+            <p><b>Bước 3:</b> Copy tất cả nội dung của trang vừa mở.</p>
+            <p><b>Bước 4:</b> Dán nội dung vào hộp <b>Nội dung copy ở Tấn Giang</b> bên dưới và nhấp vào <b>Giải mã</b>.
+            </p>
+            <p><button class="tertiary large" onclick="deJson()"><i class="fa fa-key-modern" aria-hidden="true"></i>
+                    Giải mã</button></p>
+            <p><b>Bước 5:</b> Copy nội dung ở hộp <b>Nội dung đã giải mã</b>, đây là text mà bạn cần.</p>
+            <hr>
+            <p><b><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Video hướng dẫn:</b> <a
+                    href="https://youtu.be/XPA7W35b0T8"><i class="fa fa-laptop" aria-hidden="true"></i> PC</a> <a
+                    href="https://youtube.com/shorts/ZiwWnVnhZnQ?feature=share"><i class="fa fa-mobile"
+                        aria-hidden="true"></i> Điện thoại</a></p>
+            </p>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="card fluid">
+                <div class="section dark center">
+                    <h3>Nội dung copy ở Tấn Giang <button class="tertiary" onclick="pasteClipboardToOr_text()"><i
+                                class="fa fa-clipboard" aria-hidden="true"></i></button></h3>
+                </div>
+                <div class="section">
+                    <textarea class="doc" id="or_text" rows="8" spellcheck="false" style="width:100%;"
+                        placeholder=""></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-6">
+            <div class="card fluid">
+                <div class="section dark center">
+                    <h3>Nội dung đã giải mã <button class="tertiary" onclick="copyDe_textToClipboard()"><i
+                                class="fa fa-files-o" aria-hidden="true"></i> </i>
+                        </button></h3>
+                </div>
+                <div class="section">
+                    <textarea class="doc" id="de_text" rows="8" spellcheck="false" style="width:100%;"
+                        placeholder=""></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openLink() {
+            var url = document.getElementById("linkTG").value;
+            let url1 = url.split("?novelid=")[1];
+            let chapterid = url1.split("&chapterid=")[1];
+            let novelid = url1.split("&chapterid=")[0];
+            console.log(url1);
+            url = "http://app-ios-cdn.jjwxc.net/androidapi/chapterContent?novelId=" + novelid + "&chapterId=" + chapterid;
+            window.open(url, '_blank');
+        }
+        function deJson() {
+            var or_text = document.getElementById("or_text").value;
+            var de_text = document.getElementById("de_text").value;
+            var json = JSON.parse(or_text);
+            if (json.message) {
+                text = "Đây là chương Vip. Bạn chưa mua chương này.";
+                document.getElementById("de_text").value = text;
+                return;
+            }
+            var text = json.chapterName + "\r\n\r\n\r\n" + json.content.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/<br>/g, "\n");;
+            document.getElementById("de_text").value = text;
+        }
+
+        function pasteClipboardToOr_text() {
+            navigator.clipboard.readText().then(text => {
+                document.getElementById("or_text").value = text;
+            });
+        }
+
+        function copyDe_textToClipboard() {
+            var de_text = document.getElementById("de_text").value;
+            navigator.clipboard.writeText(de_text);
+        }
+    </script>
+
+
+    <footer class="center" style="background: #3D4852;color:#fff;margin-top: 30px;text-align:center;">
+        <p>© 2/6/2022 <a href="https://github.com/Moleys"><b style="color: #fff">Moleys</b></a></p>
+    </footer>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.2.0/css/fork-awesome.min.css">
+    </body>
+
+</html>
